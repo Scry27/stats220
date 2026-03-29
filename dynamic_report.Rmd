@@ -1,0 +1,111 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+library(tidyverse)
+```
+
+```{css}
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url("opendyslexic-0.92\OpenDyslexic-Regular.otf");
+}
+
+body {background-color: #7E7DCA; font-family: OpenDyslexic; color: #FFFFFF}
+
+ul li{margin-bottom: 15px}
+
+h2 {margin-top: 55px}
+
+h3 {margin-bottom: 25px, margin-top: 25px}
+```
+
+## WHAT THE CARD?!
+### (A Tarot Study)
+
+```{r}
+# Data Reading & Cleaning
+tarot_cards <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR76f2-RyEGeyxp5cItmGjBd9AlDGHMDt3Ri8fNbqboZ-U7_SbkYkqGytkSPp-oDlAhOXIZzJp7WUWB/pub?gid=1462983223&single=true&output=csv")
+tarot_cards2 <- tarot_cards %>% 
+  rename(Arcana = 2, Reversal = 3, Suit = 4,  Number = 5, Meaning = 6, NumberM = 7, MeaningM = 8)
+tarot_cards3 <- tarot_cards2 %>% 
+          mutate(Number = coalesce(Number, NumberM), 
+                 Meaning = coalesce(na_if(Meaning, ""), MeaningM)) %>% 
+                  select(-NumberM, -MeaningM)
+
+# setup
+Suit <- tarot_cards3 %>% count(Suit) %>% mutate(Suit = na_if(Suit, "")) %>% filter(!is.na(Suit))
+Reversals <- tarot_cards3 %>% count(Reversal)
+Arcana <- tarot_cards3 %>% count(Arcana)
+```
+Hey! Its me - the card shark in your soul... and what I have is **DATA**! Lots of it! So it is now time to divine the past, present and future...
+<br>
+<br>
+But on a more serious note, this dynamic report aims to interpret data about Tarot Cards! Using some *data science* techniques we will extrapolate the answer to our questions. Like:
+<br>
+
+- Out of the Minor Arcana which suit gets drawn the most?
+- Are Cards drawn more frequently upright or reversed?
+- What is the average card number pulled?
+<br>
+
+If you are familiar with this study, and have participated in our data collection. One HUGEEEEEEEEEEEE thank you to you. Without your data this report would not exist right now.
+<br>
+
+Finally as a reminder, the data used in this report was sourced participants using a Google form. The card shark in your soul... (TM) asks you to remember that all data collected is Anonymous, Only used for educational purposes and is Secure within the University of Auckland's database.
+<br>
+
+For more info please refer to the WHAT THE CARD?! Google Form.
+
+<br>
+
+
+
+
+### Question: What is average card number drawn?
+Answer: The average card number drawn from our dataset is: `r round(mean(tarot_cards3$Number))`.
+<br>
+<br>
+
+### Question: Out of the total amount of cards drawn, how many were reversals?
+Answer:
+
+```{r}
+ggplot(data = tarot_cards3, aes(x = Number)) + geom_bar(aes(fill = Reversal)) + theme(panel.background = element_rect(fill = "lavender", color = "lavender"))
+```
+<br>
+
+In sentence form:
+          Out of the `r length(tarot_cards3$Timestamp)` cards drawn, `r Reversals$n[2]` were reversals.
+<br>
+<br>
+
+### Question: What is the average number of characters in our cards meaning?
+Answer: The average number of characters from out dataset is: `r round(mean(nchar(tarot_cards3$Meaning)))`.
+
+<br>
+
+### Question: Out of the Minor Arcana, what is the breakdown of the cards drawn?
+Answer: From the Minor Arcana `r Suit$n[1]` Cups were drawn, `r Suit$n[2]` Pentacles were drawn, `r Suit$n[3]` Swords were Drawn & `r Suit$n[4]` Wand were drawn.
+
+<br>
+
+### Question: Out of the total amount of cards drawn, how many were Major Arcana and how many were Minor Arcana?
+
+```{r}
+ggplot(data = tarot_cards3, aes(x = Number)) + geom_bar(aes(fill = Arcana)) + theme(panel.background = element_rect(fill = "lavender", color = "lavender"))
+
+```
+<br>
+
+In Sentence form:
+        Out of the total amount of cards drawn `r Arcana$n[1]` were Major Arcana and `r Arcana$n[2]` were Minor Arcana.
+
+
+
+
+
+
