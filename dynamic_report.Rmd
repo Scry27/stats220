@@ -26,11 +26,13 @@ h3 {margin-bottom: 25px, margin-top: 25px}
 ```
 
 ```{r}
-icon6 <- image_read("https://cdn-icons-png.flaticon.com/512/9954/9954141.png") %>% image_scale("32x32")
-icon7 <- image_read("https://cdn-icons-png.flaticon.com/512/4304/4304541.png") %>% image_scale("32x32")
+icon5 <- image_read("https://cdn-icons-png.flaticon.com/512/1408/1408470.png") %>% image_scale("32x325
+                                                                                               ")
+icon6 <- image_read("https://cdn-icons-png.flaticon.com/512/1408/1408347.png") %>% image_scale("32x32")
+icon7 <- image_read("https://cdn-icons-png.flaticon.com/512/815/815844.png") %>% image_scale("32x32")
 icon8 <- image_read("https://cdn-icons-png.freepik.com/256/17249/17249287.png?semt=ais_white_labe") %>% image_scale("32x32")
 
-frames <- c(icon1, icon2, icon3, icon4)
+
 frames <- c(icon5, icon6, icon7, icon8)
 icon_ani <- image_animate(frames, fps = 1)
 
@@ -74,6 +76,13 @@ Finally as a reminder, the data used in this report was sourced participants usi
 <br>
 
 For more info please refer to the WHAT THE CARD?! Google Form.
+
+Icons sourced from: www.flaticon.com
+Made by:
+- andinur
+- Freepik
+- Sympnoiaicon
+- Vectors Tank
 <br>
 
 
