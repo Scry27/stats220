@@ -6,9 +6,11 @@ output: html_fragment
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 library(tidyverse)
+library(magick)
 ```
 
 ```{css}
+
 @font-face {
   font-family: 'OpenDyslexic';
   src: url("opendyslexic-0.92\OpenDyslexic-Regular.otf");
@@ -22,6 +24,19 @@ h2 {margin-top: 55px}
 
 h3 {margin-bottom: 25px, margin-top: 25px}
 ```
+
+```{r}
+icon6 <- image_read("https://cdn-icons-png.flaticon.com/512/9954/9954141.png") %>% image_scale("32x32")
+icon7 <- image_read("https://cdn-icons-png.flaticon.com/512/4304/4304541.png") %>% image_scale("32x32")
+icon8 <- image_read("https://cdn-icons-png.freepik.com/256/17249/17249287.png?semt=ais_white_labe") %>% image_scale("32x32")
+
+frames <- c(icon1, icon2, icon3, icon4)
+frames <- c(icon5, icon6, icon7, icon8)
+icon_ani <- image_animate(frames, fps = 1)
+
+
+```
+
 
 ## WHAT THE CARD?!
 ### (A Tarot Study)
@@ -59,14 +74,13 @@ Finally as a reminder, the data used in this report was sourced participants usi
 <br>
 
 For more info please refer to the WHAT THE CARD?! Google Form.
-
 <br>
 
 
 
 
 ### Question: What is average card number drawn?
-Answer: The average card number drawn from our dataset is: `r round(mean(tarot_cards3$Number))`.
+Answer: The average card number drawn from our dataset is:`r icon_ani``r round(mean(tarot_cards3$Number))`.
 <br>
 <br>
 
@@ -79,17 +93,17 @@ ggplot(data = tarot_cards3, aes(x = Number)) + geom_bar(aes(fill = Reversal)) + 
 <br>
 
 In sentence form:
-          Out of the `r length(tarot_cards3$Timestamp)` cards drawn, `r Reversals$n[2]` were reversals.
+          Out of the `r icon_ani``r length(tarot_cards3$Timestamp)` cards drawn, `r icon_ani``r Reversals$n[2]` were reversals.
 <br>
 <br>
 
 ### Question: What is the average number of characters in our cards meaning?
-Answer: The average number of characters from out dataset is: `r round(mean(nchar(tarot_cards3$Meaning)))`.
+Answer: The average number of characters from out dataset is: `r icon_ani``r round(mean(nchar(tarot_cards3$Meaning)))`.
 
 <br>
 
 ### Question: Out of the Minor Arcana, what is the breakdown of the cards drawn?
-Answer: From the Minor Arcana `r Suit$n[1]` Cups were drawn, `r Suit$n[2]` Pentacles were drawn, `r Suit$n[3]` Swords were Drawn & `r Suit$n[4]` Wand were drawn.
+Answer: From the Minor Arcana `r icon_ani``r Suit$n[1]` Cups were drawn, `r icon_ani``r Suit$n[2]` Pentacles were drawn, `r icon_ani``r Suit$n[3]` Swords were Drawn & `r icon_ani``r Suit$n[4]` Wand were drawn.
 
 <br>
 
@@ -102,10 +116,7 @@ ggplot(data = tarot_cards3, aes(x = Number)) + geom_bar(aes(fill = Arcana)) + th
 <br>
 
 In Sentence form:
-        Out of the total amount of cards drawn `r Arcana$n[1]` were Major Arcana and `r Arcana$n[2]` were Minor Arcana.
-
-
-
+        Out of the total amount of cards drawn `r icon_ani``r Arcana$n[1]` were Major Arcana and `r icon_ani``r Arcana$n[2]` were Minor Arcana.
 
 
 
