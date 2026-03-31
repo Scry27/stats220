@@ -77,12 +77,8 @@ Finally as a reminder, the data used in this report was sourced participants usi
 
 For more info please refer to the WHAT THE CARD?! Google Form.
 
-Icons sourced from: www.flaticon.com
-Made by:
-- andinur
-- Freepik
-- Sympnoiaicon
-- Vectors Tank
+Icons sourced from: www.flaticon.com & www.freepik.com
+
 <br>
 
 
@@ -97,7 +93,11 @@ Answer: The average card number drawn from our dataset is:`r icon_ani``r round(m
 Answer:
 
 ```{r}
-ggplot(data = tarot_cards3, aes(x = Number)) + geom_bar(aes(fill = Reversal)) + theme(panel.background = element_rect(fill = "lavender", color = "lavender"))
+ggplot(data = tarot_cards3, aes(x = Number)) + 
+  geom_bar(aes(fill =  fct_rev(Reversal))) + 
+  theme(panel.background = element_rect(fill = "lavender", color = "lavender")) + 
+  scale_fill_discrete(type = c("purple", "darkblue")) +
+  labs(title = "Number of Cards Drawn by Reversals", x = "Number of Cards Drawn", fill = "Reversals")
 ```
 <br>
 
@@ -119,7 +119,11 @@ Answer: From the Minor Arcana `r icon_ani``r Suit$n[1]` Cups were drawn, `r icon
 ### Question: Out of the total amount of cards drawn, how many were Major Arcana and how many were Minor Arcana?
 
 ```{r}
-ggplot(data = tarot_cards3, aes(x = Number)) + geom_bar(aes(fill = Arcana)) + theme(panel.background = element_rect(fill = "lavender", color = "lavender"))
+ggplot(data = tarot_cards3, aes(x = Number)) + 
+  geom_bar(aes(fill = Arcana)) + 
+  theme(panel.background = element_rect(fill = "lavender", color = "lavender")) +
+  scale_fill_discrete(type = c("purple", "darkblue")) +
+  labs(title = "Number of Cards Drawn by Arcana", x = "Number of Cards Drawn", fill = "Arcana") 
 
 ```
 <br>
